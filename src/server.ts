@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import configs from "./app/configs";
 import app from "./app";
+import { Server} from "http";
+
+let server: Server;
 
 const databaseConnection= async() => {
     try {
@@ -12,7 +15,23 @@ const databaseConnection= async() => {
     }
 }
 
-app.listen(configs.port, () => {
+server = app.listen(configs.port, () => {
     console.log(`My assignment server is running on port ${configs.port}`)
     databaseConnection();
+})
+
+
+process.on("unhandledRejection", () => {
+    console.log("unhandledRejection is detected. Server shutting down")
+    if(server){
+        server.close(() => {
+            process.exit(1);
+        })
+    }
+    process.exit(1)
+})
+
+process.on("uncaughtException", () => {
+    console.log("uncaughtException is detected. Server shutting down..")
+    process.exit(1)
 })

@@ -4,13 +4,16 @@ type TResponse <T> ={
     success: boolean, 
     statusCode: number, 
     message: string, 
-    payload: T
+    data: T
 }
 
 
 export const successResponse  = <T>(res:Response, data: TResponse<T>) => {
-    success: data.success;
-    statusCode: data.statusCode;
-    message: data.message;
-    payload: data.payload
+    res.status(data.statusCode).json({
+    success: data.success,
+    statusCode: data.statusCode,
+    message: data.message,
+    data: data.data
+    })
+
 }

@@ -1,54 +1,74 @@
 import { Schema, model } from "mongoose";
-import { TUser } from "./user.interface";
+import { IUser, UserModel } from "../auth/auth.interface";
+import bcrypt from "bcrypt";
+import configs from "../app/configs";
 
-const userSchema = new Schema<TUser>({
+const userSchema = new Schema<IUser, UserModel>(
+  {
     name: {
-        type: String,
-        required: true
-    }, 
-email: {
-    type: String, 
-    required: true,
-    unique: true,
-    validate: {
-        validator: function(v:string) {
-            return /\S+@\S+\.\S+/.test(v)
-        } ,
-         message: props => `${props.value} is not a valid email!`
-    }, 
-
-    trim:true
-},
-password: {
-    type: String,
-    required: true, 
-    select: false
-},
-phone:{
-    type: String,
-    required: [true, 'User phone number required'],
-    unique: true,
-    trim:true,
-    validate: {
-        validator: function(v:string) {
+      type: String,
+      required: [true, "Name is required"],
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: {
+        validator: function (v: string) {
+          return /\S+@\S+\.\S+/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid email!`,
+      },
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minLength: [6, "Password must be at least 3 characters"],
+      select: 0,
+    },
+    phone: {
+      type: String,
+      required: [true, "User phone number required"],
+      unique: true,
+      trim: true,
+      validate: {
+        validator: function (v: string) {
           return /\d{4}\d{3}\d{4}/.test(v); // Bangladeshi phone number 11 digits with 0;
         },
-        message: props => `${props.value} is not a valid phone number!`
+        message: (props) => `${props.value} is not a valid phone number!`,
       },
-   
-    
-},
-address:{
-    type: String, 
-    required: [true, 'Address is required']
-},
-role: {
-    type: String,
-    default: "user",
-    enum: ["user", "admin"]   
-}
-}, {timestamps:true})
+    },
+    address: {
+      type: String,
+      required: [true, "Address is required"],
+    },
+    role: {
+      type: String,
+      default: "user",
+      enum: ["user", "admin"],
+    },
+  },
+  { timestamps: true }
+);
+
+// password hashing before saving user
+userSchema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(this.password, Number(configs.saltRound));
+  next();
+});
 
 
+//compare password while user login
+userSchema.statics.comparePassword = async function (
+  plainPassword,
+  hashedPassword
+) {
+  return await bcrypt.compare(plainPassword, hashedPassword);
+};
+userSchema.statics.isUserExists = async function (email) {
+  return await User.findOne({ email }).select("+password");
+};
 
-export const User = model<TUser>("User", userSchema);
+export const User = model<IUser, UserModel>("User", userSchema);
