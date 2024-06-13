@@ -16,19 +16,6 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const configs_1 = __importDefault(require("./app/configs"));
 const app_1 = __importDefault(require("./app"));
 let server;
-const databaseConnection = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield mongoose_1.default.connect(configs_1.default.databaseUrl);
-        console.log("Database connected successfully");
-        server = app_1.default.listen(configs_1.default.port, () => {
-            console.log(`My assignment-3 server is running on port ${configs_1.default.port}`);
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-});
-databaseConnection();
 process.on("unhandledRejection", () => {
     console.log("unhandledRejection is detected. Server shutting down");
     if (server) {
@@ -37,6 +24,21 @@ process.on("unhandledRejection", () => {
         });
     }
     process.exit(1);
+});
+mongoose_1.default.set("strictQuery", true);
+const databaseConnection = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield mongoose_1.default.connect(configs_1.default.databaseUrl);
+        console.log("Database connected successfully");
+    }
+    catch (error) {
+        console.log(error.message);
+        console.error("database connection failed");
+    }
+});
+server = app_1.default.listen(configs_1.default.port, () => {
+    console.log(`My assignment-3 server is running on port ${configs_1.default.port}`);
+    databaseConnection();
 });
 process.on("uncaughtException", () => {
     console.log("uncaughtException is detected. Server shutting down..");
