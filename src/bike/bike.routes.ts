@@ -11,7 +11,7 @@ import { createBikeValidationSchema, updateBikeValidationSchema } from "./bike.z
 
 const bikeRouter = Router();
 bikeRouter.route("/").post( isAuthenticated(roles.admin), runValidator(createBikeValidationSchema), bikeController.handleCreateBike);
-bikeRouter.route("/").get( isAuthenticated(roles.admin, roles.user), bikeController.handleGetAllBikes);
+bikeRouter.route("/").get( bikeController.handleGetAllBikes);
 bikeRouter.route("/:id").put( isAuthenticated(roles.admin), runValidator(updateBikeValidationSchema), bikeController.handleUpdateBike);
 bikeRouter.route("/:id").delete( isAuthenticated(roles.admin), bikeController.handleDeleteBike);
 
