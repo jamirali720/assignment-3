@@ -16,15 +16,6 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const configs_1 = __importDefault(require("./app/configs"));
 const app_1 = __importDefault(require("./app"));
 let server;
-process.on("unhandledRejection", () => {
-    console.log("unhandledRejection is detected. Server shutting down");
-    if (server) {
-        server.close(() => {
-            process.exit(1);
-        });
-    }
-    process.exit(1);
-});
 mongoose_1.default.set("strictQuery", true);
 const databaseConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -42,5 +33,14 @@ server = app_1.default.listen(configs_1.default.port, () => {
 });
 process.on("uncaughtException", () => {
     console.log("uncaughtException is detected. Server shutting down..");
+    process.exit(1);
+});
+process.on("unhandledRejection", () => {
+    console.log("unhandledRejection is detected. Server shutting down");
+    if (server) {
+        server.close(() => {
+            process.exit(1);
+        });
+    }
     process.exit(1);
 });

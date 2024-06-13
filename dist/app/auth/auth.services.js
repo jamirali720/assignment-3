@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authServices = void 0;
 const error_1 = require("../utils/error");
 const user_model_1 = require("../user/user.model");
-const configs_1 = __importDefault(require("../app/configs"));
+const configs_1 = __importDefault(require("../configs"));
 const generateToken_1 = __importDefault(require("../utils/generateToken"));
 const signupUserService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     let result = yield user_model_1.User.create(payload);

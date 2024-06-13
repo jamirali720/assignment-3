@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const router_1 = __importDefault(require("./app/router"));
-const error_1 = require("./utils/error");
+const error_1 = require("./app/utils/error");
 const app = (0, express_1.default)();
 // middleware
 app.use(express_1.default.json());

@@ -9,7 +9,7 @@ const handleZodErrors_1 = require("./handleZodErrors");
 const handleMongoValidationError_1 = __importDefault(require("./handleMongoValidationError"));
 const handleCastError_1 = __importDefault(require("./handleCastError"));
 const handleDuplicateError_1 = __importDefault(require("./handleDuplicateError"));
-const configs_1 = __importDefault(require("../app/configs"));
+const configs_1 = __importDefault(require("../configs"));
 // error hanlder class
 class ErrorHandler extends Error {
     constructor(statusCode, message, stack = "") {
@@ -64,8 +64,8 @@ const handleError = (err, _req, res, _next) => {
         errorSource = [
             {
                 path: "",
-                message: err.message
-            }
+                message: err.message,
+            },
         ];
     }
     else if (err instanceof Error) {
@@ -73,8 +73,8 @@ const handleError = (err, _req, res, _next) => {
         errorSource = [
             {
                 path: "",
-                message: err.message
-            }
+                message: err.message,
+            },
         ];
     }
     else if (err.name === "jsonWebTokenError") {
@@ -82,8 +82,8 @@ const handleError = (err, _req, res, _next) => {
         errorSource = [
             {
                 path: "",
-                message: (err === null || err === void 0 ? void 0 : err.message) || "json web token invalid. Please login again!"
-            }
+                message: (err === null || err === void 0 ? void 0 : err.message) || "json web token invalid. Please login again!",
+            },
         ];
     }
     else if (err.name === "TokenExpiredError") {
@@ -91,8 +91,9 @@ const handleError = (err, _req, res, _next) => {
         errorSource = [
             {
                 path: "",
-                message: (err === null || err === void 0 ? void 0 : err.message) || "json web token expired. Please login and try again !"
-            }
+                message: (err === null || err === void 0 ? void 0 : err.message) ||
+                    "json web token expired. Please login and try again !",
+            },
         ];
     }
     res.status(statusCode).json({

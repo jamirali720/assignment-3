@@ -1,7 +1,7 @@
 import { ErrorHandler } from "../utils/error";
 import { User } from "../user/user.model";
 import { IUser } from "./auth.interface";
-import configs from "../app/configs";
+import configs from "../configs";
 import createToken from "../utils/generateToken";
 import { ILoginData } from "./auth.interface";
 

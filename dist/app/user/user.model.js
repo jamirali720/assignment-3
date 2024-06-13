@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const configs_1 = __importDefault(require("../app/configs"));
+const configs_1 = __importDefault(require("../configs"));
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,

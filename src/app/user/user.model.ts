@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { IUser, UserModel } from "../auth/auth.interface";
 import bcrypt from "bcrypt";
-import configs from "../app/configs";
+import configs from "../configs";
 
 const userSchema = new Schema<IUser, UserModel>(
   {
@@ -58,7 +58,6 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, Number(configs.saltRound));
   next();
 });
-
 
 //compare password while user login
 userSchema.statics.comparePassword = async function (

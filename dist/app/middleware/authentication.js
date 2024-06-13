@@ -16,7 +16,7 @@ exports.isAuthenticated = void 0;
 const higherOrderFunction_1 = __importDefault(require("../utils/higherOrderFunction"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const error_1 = require("../utils/error");
-const configs_1 = __importDefault(require("../app/configs"));
+const configs_1 = __importDefault(require("../configs"));
 const user_model_1 = require("../user/user.model");
 const http_status_1 = __importDefault(require("http-status"));
 const isAuthenticated = (...roles) => {
@@ -27,7 +27,6 @@ const isAuthenticated = (...roles) => {
             throw new error_1.ErrorHandler(http_status_1.default.UNAUTHORIZED, "You are un-authenticated. Please Login first");
         }
         const decoded = jsonwebtoken_1.default.verify(token, configs_1.default.jwtAccessTokenSecretKey);
-        console.log(decoded);
         if (!decoded) {
             throw new error_1.ErrorHandler(http_status_1.default.UNAUTHORIZED, "You are un-authorized or your token has been expired. Please Login first ");
         }

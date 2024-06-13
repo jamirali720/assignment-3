@@ -4,7 +4,7 @@ import { handleZodErrors } from "./handleZodErrors";
 import handleMongooseErrors from "./handleMongoValidationError";
 import handleCastErrors from "./handleCastError";
 import handleDuplicateError from "./handleDuplicateError";
-import configs from "../app/configs";
+import configs from "../configs";
 
 export type TErrorSource = {
   path: string | number;
@@ -53,51 +53,51 @@ export const handleError: ErrorRequestHandler = (err, _req, res, _next) => {
     statusCode = errors.statusCode;
     message = errors.message;
     errorSource = errors.errorSource as TErrorSource;
-  }else if(err.name === "CastError") {
-    const errors  = handleCastErrors(err);
+  } else if (err.name === "CastError") {
+    const errors = handleCastErrors(err);
     statusCode = errors.statusCode;
     message = errors.message;
     errorSource = errors.errorSource as TErrorSource;
-  }else if(err.code  === 11000){
+  } else if (err.code === 11000) {
     const errors = handleDuplicateError(err);
     statusCode = errors.statusCode;
     message = errors.message;
     errorSource = errors.errorSource as TErrorSource;
-  }  else if(err instanceof ErrorHandler){   
+  } else if (err instanceof ErrorHandler) {
     statusCode = err.statusCode;
     message = err.message;
     errorSource = [
       {
-        path: "", 
-        message: err.message
-      }
-    ]
-  }else if(err instanceof Error){      
+        path: "",
+        message: err.message,
+      },
+    ];
+  } else if (err instanceof Error) {
     message = err.message;
     errorSource = [
       {
-        path: "", 
-        message: err.message
-      }
-    ]
-  }
-  else if(err.name === "jsonWebTokenError"){      
+        path: "",
+        message: err.message,
+      },
+    ];
+  } else if (err.name === "jsonWebTokenError") {
     message = err.message;
     errorSource = [
       {
-        path: "", 
-        message: err?.message || "json web token invalid. Please login again!"
-      }
-    ]
-  }
-  else if(err.name === "TokenExpiredError"){      
+        path: "",
+        message: err?.message || "json web token invalid. Please login again!",
+      },
+    ];
+  } else if (err.name === "TokenExpiredError") {
     message = err?.message;
     errorSource = [
       {
-        path: "", 
-        message: err?.message || "json web token expired. Please login and try again !"
-      }
-    ]
+        path: "",
+        message:
+          err?.message ||
+          "json web token expired. Please login and try again !",
+      },
+    ];
   }
 
   res.status(statusCode).json({
@@ -105,6 +105,6 @@ export const handleError: ErrorRequestHandler = (err, _req, res, _next) => {
     statusCode,
     message,
     errorSource,
-    stack: configs.NODE_ENV === "development" ? err.stack : null,    
+    stack: configs.NODE_ENV === "development" ? err.stack : null,
   });
 };
