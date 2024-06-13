@@ -1,5 +1,4 @@
-export type TBike = {
-    _id?: string;
+export type TBike = {   
     name:string;
     description:string;
     pricePerHour: number;
