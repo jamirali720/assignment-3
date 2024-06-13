@@ -12,13 +12,11 @@ const updateUsersProfileService = async (id: string, payload: Record<string,  st
   const updates: Record<string, unknown> = {}
   const allowedUpdates = ["name", "phone"];
 
-  // if(payload && typeof  payload === "object"){
-   
-  // }
-
-  for(const key in payload) {
-    if(allowedUpdates.includes(key)) {
-      updates[key] = payload[key]
+  if(payload && typeof payload === "object"){
+    for(const key in payload) {
+      if(allowedUpdates.includes(key)) {
+        updates[key] = payload[key]
+      }
     }
   }
   

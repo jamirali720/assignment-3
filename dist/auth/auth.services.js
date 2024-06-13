@@ -8,11 +8,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authServices = void 0;
-const signupUserService = () => __awaiter(void 0, void 0, void 0, function* () {
+const error_1 = require("../utils/error");
+const user_model_1 = require("../user/user.model");
+const configs_1 = __importDefault(require("../app/configs"));
+const generateToken_1 = __importDefault(require("../utils/generateToken"));
+const signupUserService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    let result = yield user_model_1.User.create(payload);
+    return result;
 });
-const loginUserService = () => __awaiter(void 0, void 0, void 0, function* () {
+const loginUserService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = payload;
+    const user = yield user_model_1.User.isUserExists(email);
+    if (!user) {
+        throw new error_1.ErrorHandler(404, "User dose not exist");
+    }
+    const isPasswordMatched = yield user_model_1.User.comparePassword(password, user.password);
+    if (!isPasswordMatched) {
+        throw new error_1.ErrorHandler(409, "Password not matched");
+    }
+    // const tokenOptions = {
+    //   userId: user._id,
+    //   email: user.email,
+    //   role: user.role,
+    // };
+    const accessToken = (0, generateToken_1.default)(user, configs_1.default.jwtAccessTokenSecretKey, configs_1.default.jwtAccessTokenExpiration);
+    return {
+        user,
+        accessToken,
+    };
 });
 exports.authServices = {
     signupUserService,
