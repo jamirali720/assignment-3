@@ -9,17 +9,17 @@ const databaseConnection= async() => {
     try {
         await mongoose.connect(configs.databaseUrl as string);
         console.log("Database connected successfully");
+
+        server = app.listen(configs.port, () => {
+            console.log(`My assignment-3 server is running on port ${configs.port}`)            
+        })
     } catch (error) {
-       console.error(error);
-        
+       console.error(error);        
     }
 }
 
-server = app.listen(configs.port, () => {
-    console.log(`My assignment server is running on port ${configs.port}`)
-    databaseConnection();
-})
 
+databaseConnection();
 
 process.on("unhandledRejection", () => {
     console.log("unhandledRejection is detected. Server shutting down")
