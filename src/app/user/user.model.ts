@@ -32,8 +32,9 @@ const userSchema = new Schema<IUser, UserModel>(
       type: String,
       required: [true, "User phone number required"],    
       validate: {
-        validator: function (v: string) {        
-          return /\d{4}-\d{3}-\d{4}/.test(v); // Bangladeshi phone number 11 digits with 0;
+        validator: function (v: string) {       
+          const phoneRegex = /\d{4}-\d{3}-\d{4}/
+          return phoneRegex.test(v); // Bangladeshi phone number 11 digits with 0;
         },
         message: (props) => `${props.value} is not a valid phone number!`,
       },
