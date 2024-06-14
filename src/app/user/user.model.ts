@@ -30,9 +30,7 @@ const userSchema = new Schema<IUser, UserModel>(
     },
     phone: {
       type: String,
-      required: [true, "User phone number required"],
-      unique: true,
-      trim: true,
+      required: [true, "User phone number required"],    
       validate: {
         validator: function (v: string) {
           console.log(v)
