@@ -35,6 +35,7 @@ const userSchema = new Schema<IUser, UserModel>(
       trim: true,
       validate: {
         validator: function (v: string) {
+          console.log(v)
           return /\d{4}\d{3}\d{4}/.test(v); // Bangladeshi phone number 11 digits with 0;
         },
         message: (props) => `${props.value} is not a valid phone number!`,

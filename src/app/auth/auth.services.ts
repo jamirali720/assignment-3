@@ -21,12 +21,6 @@ const loginUserService = async (payload: ILoginData) => {
     throw new ErrorHandler(409, "Password not matched");
   }
 
-  // const tokenOptions = {
-  //   userId: user._id,
-  //   email: user.email,
-  //   role: user.role,
-  // };
-
   const accessToken = createToken(
     user,
     configs.jwtAccessTokenSecretKey as string,
