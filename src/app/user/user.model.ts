@@ -32,8 +32,7 @@ const userSchema = new Schema<IUser, UserModel>(
       type: String,
       required: [true, "User phone number required"],    
       validate: {
-        validator: function (v: string) {
-          console.log(v)
+        validator: function (v: string) {        
           return /\d{4}-\d{3}-\d{4}/.test(v); // Bangladeshi phone number 11 digits with 0;
         },
         message: (props) => `${props.value} is not a valid phone number!`,
@@ -56,6 +55,10 @@ const userSchema = new Schema<IUser, UserModel>(
 userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, Number(configs.saltRound));
   next();
+});
+userSchema.post("save", async function (doc, next) {
+  doc.password = "";
+  next()
 });
 
 //compare password while user login

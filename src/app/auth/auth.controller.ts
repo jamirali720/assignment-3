@@ -7,7 +7,7 @@ export const handleSignUpUser = catchAsync(async (req, res) => {
   successResponse(res, {
     success: true,
     statusCode: 201,
-    message: "You have successfully signed up",
+    message:  "User registered successfully",
     data: result,
   });
 });
@@ -18,7 +18,7 @@ export const handleLoginUser = catchAsync(async (req, res) => {
   successResponse(res, {
     success: true,
     statusCode: 201,
-    message: "You have logged in successfully",
+    message: "User logged in successfully",
     data: result,
   });
 });
