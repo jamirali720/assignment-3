@@ -26,14 +26,14 @@ const userSchema = new Schema<IUser, UserModel>(
       type: String,
       required: [true, "Password is required"],
       minLength: [6, "Password must be at least 3 characters"],
-      select: 0,
+      select: false,
     },
     phone: {
       type: String,
-      required: [true, "User phone number required"],    
+      required: [true, "User phone number required"],
       validate: {
-        validator: function (v: string) {       
-          const phoneRegex = /\d{4}-\d{3}-\d{4}/
+        validator: function (v: string) {
+          const phoneRegex = /\d{4}\d{3}\d{4}/;
           return phoneRegex.test(v); // Bangladeshi phone number 11 digits with 0;
         },
         message: (props) => `${props.value} is not a valid phone number!`,
@@ -59,7 +59,7 @@ userSchema.pre("save", async function (next) {
 });
 userSchema.post("save", async function (doc, next) {
   doc.password = "";
-  next()
+  next();
 });
 
 //compare password while user login

@@ -6,7 +6,7 @@ import createToken from "../utils/generateToken";
 import { ILoginData } from "./auth.interface";
 
 const signupUserService = async (payload: IUser) => {
-  let result = await User.create(payload);
+  let result = await User.create(payload);  
   return result;
 };
 
@@ -26,6 +26,7 @@ const loginUserService = async (payload: ILoginData) => {
     configs.jwtAccessTokenSecretKey as string,
     configs.jwtAccessTokenExpiration as string
   );
+
   return {
     user,
     accessToken,

@@ -13,6 +13,7 @@ const handleCreateBike = catchAsync(async(req, res) => {
 })
 const handleGetAllBikes = catchAsync(async(req, res) => {
     const result = await bikeServices.getAllBikesService();
+    console.log(result)
     successResponse(res, {
         success: true,
         statusCode: 201,

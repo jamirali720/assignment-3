@@ -4,6 +4,7 @@ import { authServices } from "./auth.services";
 
 export const handleSignUpUser = catchAsync(async (req, res) => {
   const result = await authServices.signupUserService(req.body.user);
+
   successResponse(res, {
     success: true,
     statusCode: 201,

@@ -1,12 +1,13 @@
 import { Bike } from "./bike.model";
 import { TBike } from "./bike.interface";
+import { ErrorHandler } from "../utils/error";
 
 const createBikeService = async (payload: TBike) => {
   const result = await Bike.create(payload);
   return result;
 };
 const getAllBikesService = async () => {
-  const result = await Bike.find();
+  const result = await Bike.find(); 
   return result;
 };
 const updateBikeService = async (
