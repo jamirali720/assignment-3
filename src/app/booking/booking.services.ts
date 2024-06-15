@@ -69,7 +69,7 @@ const returnBikeService = async (id: string) => {
     }
 
     const startTime = new Date(`${isBooking.startTime}`);
-    console.log("checking", startTime);
+    
     const returnTime = new Date();
     const rentalHour = getRentalHour(startTime, returnTime) / (1000 * 60 * 60);
     const rentPrice: number = rentalHour * bike.pricePerHour;
@@ -94,8 +94,8 @@ const returnBikeService = async (id: string) => {
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    console.log(error);
-    throw new ErrorHandler(httpStatus.NOT_FOUND, "Failed to return bike");
+    console.log(( error as Error).message);
+    throw new ErrorHandler(httpStatus.NOT_FOUND, ( error as Error).message);
   }
 };
 const getAllRentalService = async (userId: string) => {

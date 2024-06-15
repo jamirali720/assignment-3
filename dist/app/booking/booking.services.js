@@ -57,7 +57,6 @@ const returnBikeService = (id) => __awaiter(void 0, void 0, void 0, function* ()
             throw new error_1.ErrorHandler(http_status_1.default.NOT_FOUND, "Bike not found and failed to update");
         }
         const startTime = new Date(`${isBooking.startTime}`);
-        console.log("checking", startTime);
         const returnTime = new Date();
         const rentalHour = (0, getTimeDifference_1.getRentalHour)(startTime, returnTime) / (1000 * 60 * 60);
         const rentPrice = rentalHour * bike.pricePerHour;
@@ -76,8 +75,8 @@ const returnBikeService = (id) => __awaiter(void 0, void 0, void 0, function* ()
     catch (error) {
         yield session.abortTransaction();
         session.endSession();
-        console.log(error);
-        throw new error_1.ErrorHandler(http_status_1.default.NOT_FOUND, "Failed to return bike");
+        console.log(error.message);
+        throw new error_1.ErrorHandler(http_status_1.default.NOT_FOUND, error.message);
     }
 });
 const getAllRentalService = (userId) => __awaiter(void 0, void 0, void 0, function* () {
