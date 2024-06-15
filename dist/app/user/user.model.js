@@ -38,16 +38,15 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: [true, "Password is required"],
         minLength: [6, "Password must be at least 3 characters"],
-        select: 0,
+        select: false,
     },
     phone: {
         type: String,
         required: [true, "User phone number required"],
-        unique: true,
-        trim: true,
         validate: {
             validator: function (v) {
-                return /\d{4}\d{3}\d{4}/.test(v); // Bangladeshi phone number 11 digits with 0;
+                const phoneRegex = /\d{4}\d{3}\d{4}/;
+                return phoneRegex.test(v); // Bangladeshi phone number 11 digits with 0;
             },
             message: (props) => `${props.value} is not a valid phone number!`,
         },
@@ -66,6 +65,12 @@ const userSchema = new mongoose_1.Schema({
 userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         this.password = yield bcrypt_1.default.hash(this.password, Number(configs_1.default.saltRound));
+        next();
+    });
+});
+userSchema.post("save", function (doc, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        doc.password = "";
         next();
     });
 });

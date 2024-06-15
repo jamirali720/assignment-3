@@ -15,17 +15,19 @@ exports.userSignUpValidationSchema = zod_1.z.object({
                 required_error: "Email is required",
                 invalid_type_error: "Email must be string",
             })
-                .email(),
+                .email({ message: "Provided email is INVALID" }),
             password: zod_1.z.string({
                 required_error: "Password is required",
                 invalid_type_error: "Password must be string",
             }).min(6, { message: "Password must be at least 6 characters" }),
-            phone: zod_1.z.string().startsWith("0"),
+            phone: zod_1.z.string().startsWith("0"), // check if the phone number is 11 digits.
             address: zod_1.z.string({
                 required_error: "Address is required",
                 invalid_type_error: "Address must be string",
             }),
             role: zod_1.z.enum([...user_constraint_1.role]).default("user"),
+        }).refine((data) => data.phone.length === 11, {
+            message: "Phone number must be 11 digits",
         }),
     }),
 });

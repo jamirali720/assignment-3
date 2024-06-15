@@ -8,12 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bikeServices = void 0;
 const bike_model_1 = require("./bike.model");
+const error_1 = require("../utils/error");
+const http_status_1 = __importDefault(require("http-status"));
 const createBikeService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield bike_model_1.Bike.create(payload);
-    return result;
+    const newBike = yield bike_model_1.Bike.create(payload);
+    if (!newBike) {
+        throw new error_1.ErrorHandler(http_status_1.default.BAD_REQUEST, "Failed to create  new bike");
+    }
+    return newBike;
 });
 const getAllBikesService = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield bike_model_1.Bike.find();
@@ -21,7 +29,7 @@ const getAllBikesService = () => __awaiter(void 0, void 0, void 0, function* () 
 });
 const updateBikeService = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const updates = {};
-    const allowedUpdates = [
+    const allowedUpdatesFields = [
         "name",
         "description",
         "cc",
@@ -31,7 +39,7 @@ const updateBikeService = (id, payload) => __awaiter(void 0, void 0, void 0, fun
     ];
     if (payload && typeof payload === "object") {
         for (const key in payload) {
-            if (allowedUpdates.includes(key)) {
+            if (allowedUpdatesFields.includes(key)) {
                 updates[key] = payload[key];
             }
         }
@@ -40,6 +48,9 @@ const updateBikeService = (id, payload) => __awaiter(void 0, void 0, void 0, fun
         new: true,
         runValidators: true,
     });
+    if (!result) {
+        throw new error_1.ErrorHandler(http_status_1.default.BAD_REQUEST, " Bike not found and update failed");
+    }
     return result;
 });
 const deleteBikeService = (id) => __awaiter(void 0, void 0, void 0, function* () {
