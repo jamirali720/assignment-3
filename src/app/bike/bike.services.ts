@@ -25,6 +25,7 @@ const updateBikeService = async (
     "description",
     "cc",
     "year",
+    "isAvailable",
     "model",
     "brand",
   ];
