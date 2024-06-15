@@ -33,7 +33,7 @@
 
 1. Sign Up : - Route: /api/auth/signup (POST): A user / admin can register by providing her/his information:
 
-````javascript
+```javascript
 {
 "name": "user",
 "email": "user@gmail.com",
@@ -43,11 +43,10 @@
 "role" : "admin"
 }
 
-    ```
+```
 
 
-2. User Login: Route: /api/auth/login (POST):
-* A user can login by his email id and password.
+2. User Login: Route: /api/auth/login (POST): A user can login by his email id and password.
 ```javascript
 {
 "email": "user@gmail.com",
@@ -57,11 +56,11 @@
 
 3. Get Profile: Route: /api/users/me (GET)
 
-- A use can get his profile by his authorization bearer jwt token;
+- A user can get his profile by his authorization bearer jwt token;
 
 3. Update Profile: Route: /api/users/me (PUT)
 
-- A use can update his profile by his authorization bearer jwt token;
+- A user can update his profile by his authorization bearer jwt token;
   - he can update only name, phone, address fields.
   - user can not update email, role fields
 
@@ -70,7 +69,7 @@
 1. Create Bike (Admin Only):
 
 - Route: /api/bikes (POST): Only an admin can create bike.
-- Admin will be identify with authorization bearer jwt token.
+- Admin will be identified by authorization bearer jwt token.
 
 ```javascript
 {
@@ -144,17 +143,17 @@
 
 
 
-# Get All Rentals for User (My rentals)
+ 2. Get All Rentals for User (My rentals)
 
 * Route: /api/rentals (GET): Every user will get his rented bikes with his authorization bearer jwt token;
 
 
 
 
-# 1. Middleware and Error Handling:
+### 1. Middleware and Error Handling:
 * when finding bike or other information, "No Data Found" error message will be show , if no data available.
 
-# 2. Error Handling:
+### 2. Error Handling:
 * ErrorMessage will provide following as error message.
 ```javascript
 [
@@ -184,7 +183,7 @@
 ```
 
 
-# 3. Not Found Route:
+### 3. Not Found Route:
 * a global "Not Found" handler for unmatched routes   has been handled. When a route is not found, respond with a generic message: "Not Found."
 ```javascript
 {
@@ -196,7 +195,7 @@
 
 ```
 
-# 4. Authentication Middleware: 
+### 4. Authentication Middleware: 
 * only user and admin can access their own accessible routes. if not so, error message will display;
 ```javascript
 {
@@ -206,5 +205,5 @@
 }
 ```
 
-# 5. Zod Validation:
+### 5. Zod Validation:
 * Zod validation has been utilized. When validation fails, a 400 Bad Request status code is returned,
