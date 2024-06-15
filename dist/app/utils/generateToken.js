@@ -8,7 +8,7 @@ const createToken = (payload, secretKey, expiresIn) => {
     const tokenObject = {
         userId: payload._id,
         email: payload.email,
-        role: payload.role
+        role: payload.role,
     };
     return jsonwebtoken_1.default.sign(tokenObject, secretKey, { expiresIn });
 };

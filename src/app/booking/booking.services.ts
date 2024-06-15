@@ -13,14 +13,14 @@ const createRentalService = async (user: JwtPayload, payload: TBooking) => {
   payload.userId = user.userId;
   try {
     session.startTransaction();
-    const isBikeExists = await Bike.findById(payload.bikeId)
+    const isBikeExists = await Bike.findById(payload.bikeId);
     if (!isBikeExists) {
       throw new ErrorHandler(
         httpStatus.NOT_FOUND,
         "Bike not found with this ID"
       );
     }
-    
+
     const result = await Booking.create([payload], { session });
     if (!result) {
       throw new ErrorHandler(
@@ -46,21 +46,30 @@ const returnBikeService = async (id: string) => {
 
   try {
     session.startTransaction();
-    
-    const isBooking = await Booking.findById(id);   
+
+    const isBooking = await Booking.findById(id);
     if (!isBooking) {
-      throw new ErrorHandler(httpStatus.NOT_FOUND, "Rental Booking not found with this ID");
+      throw new ErrorHandler(
+        httpStatus.NOT_FOUND,
+        "Rental Booking not found with this ID"
+      );
     }
 
-
     const bikeId = isBooking?.bikeId;
-    const bike = await Bike.findByIdAndUpdate(bikeId, {isAvailable : true}, {new :true, runValidators:true, session});
+    const bike = await Bike.findByIdAndUpdate(
+      bikeId,
+      { isAvailable: true },
+      { new: true, runValidators: true, session }
+    );
     if (!bike) {
-      throw new ErrorHandler(httpStatus.NOT_FOUND, "Bike not found and failed to update");
+      throw new ErrorHandler(
+        httpStatus.NOT_FOUND,
+        "Bike not found and failed to update"
+      );
     }
 
     const startTime = new Date(`${isBooking.startTime}`);
-    console.log( "checking",startTime)
+    console.log("checking", startTime);
     const returnTime = new Date();
     const rentalHour = getRentalHour(startTime, returnTime) / (1000 * 60 * 60);
     const rentPrice: number = rentalHour * bike.pricePerHour;
@@ -78,19 +87,19 @@ const returnBikeService = async (id: string) => {
     if (!result) {
       throw new ErrorHandler(httpStatus.NOT_FOUND, "Failed to update booking");
     }
-    
+
     await session.commitTransaction();
     session.endSession();
     return result;
-  } catch (error) {   
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    console.log(error)
+    console.log(error);
     throw new ErrorHandler(httpStatus.NOT_FOUND, "Failed to return bike");
   }
 };
-const getAllRentalService = async (userId: string) => { 
-  const result = await Booking.find({ userId});
+const getAllRentalService = async (userId: string) => {
+  const result = await Booking.find({ userId });
   if (!result) {
     throw new ErrorHandler(httpStatus.NOT_FOUND, "No Data Found");
   }

@@ -8,7 +8,7 @@ export default {
   saltRound: process.env.BCRYPT_SALT_ROUND,
   jwtAccessTokenSecretKey: process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
   jwtRefreshTokenSecretKey: process.env.JWT_REFRESH_TOKEN_SECRET_KEY,
-  jwtAccessTokenExpiration: process.env.JWT_ACCESS_TOKEN_EXPIRATION, 
-  jwtRefreshTokenExpiration : process.env.JWT_REFRESH_TOKEN_EXPIRATION,
+  jwtAccessTokenExpiration: process.env.JWT_ACCESS_TOKEN_EXPIRATION,
+  jwtRefreshTokenExpiration: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
   NODE_ENV: process.env.NODE_ENV,
 };

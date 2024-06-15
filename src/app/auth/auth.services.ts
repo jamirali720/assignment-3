@@ -7,7 +7,7 @@ import { ILoginData } from "./auth.interface";
 import httpStatus from "http-status";
 
 const signupUserService = async (payload: IUser) => {
-  let result = await User.create(payload);  
+  let result = await User.create(payload);
   return result;
 };
 

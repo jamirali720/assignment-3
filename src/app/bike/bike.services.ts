@@ -5,13 +5,16 @@ import httpStatus from "http-status";
 
 const createBikeService = async (payload: TBike) => {
   const newBike = await Bike.create(payload);
-  if(!newBike){
-    throw new ErrorHandler(httpStatus.BAD_REQUEST, "Failed to create  new bike")
+  if (!newBike) {
+    throw new ErrorHandler(
+      httpStatus.BAD_REQUEST,
+      "Failed to create  new bike"
+    );
   }
   return newBike;
 };
 const getAllBikesService = async () => {
-  const result = await Bike.find(); 
+  const result = await Bike.find();
 
   return result;
 };
@@ -41,13 +44,20 @@ const updateBikeService = async (
     new: true,
     runValidators: true,
   });
-  if(!result){
-    throw new ErrorHandler(httpStatus.BAD_REQUEST, " Bike not found and update failed")
+  if (!result) {
+    throw new ErrorHandler(
+      httpStatus.BAD_REQUEST,
+      " Bike not found and update failed"
+    );
   }
   return result;
 };
 const deleteBikeService = async (id: string) => {
-  const result = await Bike.findByIdAndUpdate(id, {isAvailable: false}, {new :true, runValidators: true});
+  const result = await Bike.findByIdAndUpdate(
+    id,
+    { isAvailable: false },
+    { new: true, runValidators: true }
+  );
   return result;
 };
 

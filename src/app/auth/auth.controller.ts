@@ -8,11 +8,10 @@ export const handleSignUpUser = catchAsync(async (req, res) => {
   successResponse(res, {
     success: true,
     statusCode: 201,
-    message:  "User registered successfully",
+    message: "User registered successfully",
     data: result,
   });
 });
-
 
 export const handleLoginUser = catchAsync(async (req, res) => {
   const result = await authServices.loginUserService(req.body.user);

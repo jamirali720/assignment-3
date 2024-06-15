@@ -9,7 +9,9 @@ import httpStatus from "http-status";
 
 export const isAuthenticated = (...roles: TRoles[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers?.authorization?.split("Bearer ")[1] || req.rawHeaders[1].split("Bearer ")[1];
+    const token =
+      req.headers?.authorization?.split("Bearer ")[1] ||
+      req.rawHeaders[1].split("Bearer ")[1];
 
     if (!token) {
       throw new ErrorHandler(
@@ -40,10 +42,10 @@ export const isAuthenticated = (...roles: TRoles[]) => {
     if (roles && !roles.includes(role)) {
       throw new ErrorHandler(
         httpStatus.FORBIDDEN,
-       "You have no access to this route"
+        "You have no access to this route"
       );
     }
-    
+
     req.user = decoded;
     next();
   });

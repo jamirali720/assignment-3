@@ -59,5 +59,5 @@ exports.bikeController = {
     handleCreateBike,
     handleGetAllBikes,
     handleUpdateBike,
-    handleDeleteBike
+    handleDeleteBike,
 };

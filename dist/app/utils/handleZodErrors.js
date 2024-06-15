@@ -5,13 +5,13 @@ const handleZodErrors = (err) => {
     const errorSource = err.issues.map((issue) => {
         return {
             path: issue.path[issue.path.length - 1],
-            message: issue.message
+            message: issue.message,
         };
     });
     return {
         statusCode: 400,
         message: "Zod Validation failed",
-        errorSource
+        errorSource,
     };
 };
 exports.handleZodErrors = handleZodErrors;

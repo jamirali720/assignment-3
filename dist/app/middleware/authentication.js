@@ -22,7 +22,8 @@ const http_status_1 = __importDefault(require("http-status"));
 const isAuthenticated = (...roles) => {
     return (0, higherOrderFunction_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         var _a, _b;
-        const token = ((_b = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split("Bearer ")[1]) || req.rawHeaders[1].split("Bearer ")[1];
+        const token = ((_b = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split("Bearer ")[1]) ||
+            req.rawHeaders[1].split("Bearer ")[1];
         if (!token) {
             throw new error_1.ErrorHandler(http_status_1.default.UNAUTHORIZED, "You are un-authenticated. Please Login first");
         }

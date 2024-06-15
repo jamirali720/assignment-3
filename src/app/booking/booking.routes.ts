@@ -21,6 +21,6 @@ rentalRouter
 
 rentalRouter
   .route("/")
-  .get(isAuthenticated( roles.user), rentalController.handleGetAllRentals);
+  .get(isAuthenticated(roles.user), rentalController.handleGetAllRentals);
 
 export default rentalRouter;

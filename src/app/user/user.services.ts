@@ -15,7 +15,7 @@ const updateUsersProfileService = async (
   payload: Record<string, string>
 ) => {
   const updates: Record<string, unknown> = {};
-  const allowedUpdatesFields = ["name","address", "phone"];
+  const allowedUpdatesFields = ["name", "address", "phone"];
 
   if (payload && typeof payload === "object") {
     for (const key in payload) {

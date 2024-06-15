@@ -25,7 +25,7 @@ export interface ILoginData {
   password: string;
 }
 
-export type TRoles = keyof typeof roles 
+export type TRoles = keyof typeof roles;
 
 declare global {
   namespace Express {

@@ -6,7 +6,7 @@ const successResponse = (res, data) => {
         success: data.success,
         statusCode: data.statusCode,
         message: data.message,
-        data: data.data
+        data: data.data,
     });
 };
 exports.successResponse = successResponse;
