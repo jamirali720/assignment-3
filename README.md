@@ -9,7 +9,9 @@
     - Dependencies: bcrypt, nodemon, cors, Dotenv, Json Web Token.
     - For Validation: Zod validation, Mongoose validation, Custom validation.
 * To use this project:
-    - ```javascript You have to install dependencies by using npm install ```
+    ```javascript 
+    You have to install dependencies by npm install
+    ```
 # There are three models in this project
 1. User Model
 2. Bike Model
