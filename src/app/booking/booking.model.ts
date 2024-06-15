@@ -13,7 +13,7 @@ const bookingSchema = new Schema<TBooking>({
         required: [true, "Bike Id is required"]
     }, 
     startTime: {
-        type: String, 
+        type: Date, 
         required: [true, "Start time is required"]
     }, 
     returnTime: {

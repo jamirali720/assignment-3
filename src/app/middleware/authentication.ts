@@ -26,7 +26,7 @@ export const isAuthenticated = (...roles: TRoles[]) => {
     if (!decoded) {
       throw new ErrorHandler(
         httpStatus.UNAUTHORIZED,
-        "You are un-authorized or your token has been expired. Please Login first "
+        "You are not authorized or your token has been expired. Please Login first "
       );
     }
 
@@ -36,11 +36,11 @@ export const isAuthenticated = (...roles: TRoles[]) => {
     if (!user) {
       throw new ErrorHandler(httpStatus.NOT_FOUND, "User not found");
     }
-    
+
     if (roles && !roles.includes(role)) {
       throw new ErrorHandler(
         httpStatus.FORBIDDEN,
-        "You are not allowed to access these resource"
+       "You have no access to this route"
       );
     }
     

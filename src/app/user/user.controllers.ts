@@ -4,7 +4,7 @@ import { userService } from "./user.services";
 
 const handleGetUserProfile = catchAsync(async(req, res) => {   
     const id = req.user.userId; 
-    const result = await userService.getUsersProfileService(id);
+    const result = await userService.getUsersProfileService(id);   
     successResponse(res, {
         success:true, 
         statusCode: 200, 

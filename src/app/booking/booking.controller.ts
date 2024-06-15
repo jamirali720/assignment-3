@@ -25,7 +25,7 @@ const handleGetAllRentals = catchAsync(async(req, res) => {
     successResponse(res, {
         success:true, 
         statusCode: 201, 
-        message: "Rentals retrieved successfully", 
+        message: result.length === 0 ? "No Data Found" : "Rentals retrieved successfully", 
         data: result
     })
 })

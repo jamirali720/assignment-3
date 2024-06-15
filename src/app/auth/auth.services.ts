@@ -4,6 +4,7 @@ import { IUser } from "./auth.interface";
 import configs from "../configs";
 import createToken from "../utils/generateToken";
 import { ILoginData } from "./auth.interface";
+import httpStatus from "http-status";
 
 const signupUserService = async (payload: IUser) => {
   let result = await User.create(payload);  
@@ -14,11 +15,11 @@ const loginUserService = async (payload: ILoginData) => {
   const { email, password } = payload;
   const user = await User.isUserExists(email);
   if (!user) {
-    throw new ErrorHandler(404, "User dose not exist");
+    throw new ErrorHandler(httpStatus.NOT_FOUND, "User dose not exist");
   }
   const isPasswordMatched = await User.comparePassword(password, user.password);
   if (!isPasswordMatched) {
-    throw new ErrorHandler(409, "Password not matched");
+    throw new ErrorHandler(httpStatus.CONFLICT, "Password not matched");
   }
 
   const accessToken = createToken(

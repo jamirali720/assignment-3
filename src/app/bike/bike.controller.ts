@@ -17,7 +17,7 @@ const handleGetAllBikes = catchAsync(async(req, res) => {
     successResponse(res, {
         success: true,
         statusCode: 201,
-        message: "Bikes retrieved successfully",
+        message: result.length === 0 ? "No Data Found" : "Bikes retrieved successfully",
         data: result,
     });
 })
@@ -37,7 +37,7 @@ const handleDeleteBike = catchAsync(async(req, res) => {
     successResponse(res, {
         success: true,
         statusCode: 201,
-        message: "Bike deleted successfully",
+        message: result === null ? "No Data Found"  : "Bike deleted successfully",
         data: result,
     });
 })

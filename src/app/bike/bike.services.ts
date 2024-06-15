@@ -1,13 +1,18 @@
 import { Bike } from "./bike.model";
 import { TBike } from "./bike.interface";
 import { ErrorHandler } from "../utils/error";
+import httpStatus from "http-status";
 
 const createBikeService = async (payload: TBike) => {
-  const result = await Bike.create(payload);
-  return result;
+  const newBike = await Bike.create(payload);
+  if(!newBike){
+    throw new ErrorHandler(httpStatus.BAD_REQUEST, "Failed to create  new bike")
+  }
+  return newBike;
 };
 const getAllBikesService = async () => {
   const result = await Bike.find(); 
+
   return result;
 };
 const updateBikeService = async (
@@ -15,7 +20,7 @@ const updateBikeService = async (
   payload: Record<string, unknown>
 ) => {
   const updates: Record<string, unknown> = {};
-  const allowedUpdates = [
+  const allowedUpdatesFields = [
     "name",
     "description",
     "cc",
@@ -26,7 +31,7 @@ const updateBikeService = async (
 
   if (payload && typeof payload === "object") {
     for (const key in payload) {
-      if (allowedUpdates.includes(key)) {
+      if (allowedUpdatesFields.includes(key)) {
         updates[key] = payload[key];
       }
     }
@@ -35,6 +40,9 @@ const updateBikeService = async (
     new: true,
     runValidators: true,
   });
+  if(!result){
+    throw new ErrorHandler(httpStatus.BAD_REQUEST, " Bike not found and update failed")
+  }
   return result;
 };
 const deleteBikeService = async (id: string) => {
