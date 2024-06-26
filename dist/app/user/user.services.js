@@ -25,7 +25,7 @@ const getUsersProfileService = (id) => __awaiter(void 0, void 0, void 0, functio
 });
 const updateUsersProfileService = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const updates = {};
-    const allowedUpdatesFields = ["name", "address", "phone"];
+    const allowedUpdatesFields = ["name", "phone"];
     if (payload && typeof payload === "object") {
         for (const key in payload) {
             if (allowedUpdatesFields.includes(key)) {
@@ -33,7 +33,7 @@ const updateUsersProfileService = (id, payload) => __awaiter(void 0, void 0, voi
             }
         }
     }
-    const result = yield user_model_1.User.findByIdAndUpdate(id, updates, { new: true });
+    const result = yield user_model_1.User.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
     if (!result) {
         throw new error_1.ErrorHandler(http_status_1.default.NOT_FOUND, "Failed to update ");
     }

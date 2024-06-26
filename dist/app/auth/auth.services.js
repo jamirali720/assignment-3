@@ -32,10 +32,10 @@ const loginUserService = (payload) => __awaiter(void 0, void 0, void 0, function
     if (!isPasswordMatched) {
         throw new error_1.ErrorHandler(http_status_1.default.CONFLICT, "Password not matched");
     }
-    const accessToken = (0, generateToken_1.default)(user, configs_1.default.jwtAccessTokenSecretKey, configs_1.default.jwtAccessTokenExpiration);
+    const token = (0, generateToken_1.default)(user, configs_1.default.jwtAccessTokenSecretKey, configs_1.default.jwtAccessTokenExpiration);
     return {
         user,
-        accessToken,
+        token,
     };
 });
 exports.authServices = {

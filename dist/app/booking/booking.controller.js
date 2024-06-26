@@ -17,7 +17,7 @@ const higherOrderFunction_1 = __importDefault(require("../utils/higherOrderFunct
 const success_1 = require("../utils/success");
 const booking_services_1 = require("./booking.services");
 const handleCreateRental = (0, higherOrderFunction_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield booking_services_1.bookingServices.createRentalService(req.user, req.body.booking);
+    const result = yield booking_services_1.bookingServices.createRentalService(req.user, req.body);
     (0, success_1.successResponse)(res, {
         success: true,
         statusCode: 201,

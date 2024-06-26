@@ -13,11 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authentication = exports.handleLoginUser = exports.handleSignUpUser = void 0;
+const http_status_1 = __importDefault(require("http-status"));
 const higherOrderFunction_1 = __importDefault(require("../utils/higherOrderFunction"));
 const success_1 = require("../utils/success");
 const auth_services_1 = require("./auth.services");
 exports.handleSignUpUser = (0, higherOrderFunction_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield auth_services_1.authServices.signupUserService(req.body.user);
+    const result = yield auth_services_1.authServices.signupUserService(req.body);
     (0, success_1.successResponse)(res, {
         success: true,
         statusCode: 201,
@@ -26,12 +27,13 @@ exports.handleSignUpUser = (0, higherOrderFunction_1.default)((req, res) => __aw
     });
 }));
 exports.handleLoginUser = (0, higherOrderFunction_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield auth_services_1.authServices.loginUserService(req.body.user);
-    (0, success_1.successResponse)(res, {
+    const result = yield auth_services_1.authServices.loginUserService(req.body);
+    res.status(http_status_1.default.OK).json({
         success: true,
         statusCode: 201,
         message: "User logged in successfully",
-        data: result,
+        token: result.token,
+        data: result.user,
     });
 }));
 exports.authentication = {

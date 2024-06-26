@@ -13,6 +13,5 @@ exports.userUpdateValidationSchema = zod_1.z.object({
             required_error: "Phone is required",
             invalid_type_error: "Phone must be string",
         })
-            .refine((val) => val.length === 11, (val) => ({ message: `${val} is not equal to 11 digits` })),
     }),
 });

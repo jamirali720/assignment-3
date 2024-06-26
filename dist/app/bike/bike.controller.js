@@ -17,7 +17,7 @@ const higherOrderFunction_1 = __importDefault(require("../utils/higherOrderFunct
 const success_1 = require("../utils/success");
 const bike_services_1 = require("./bike.services");
 const handleCreateBike = (0, higherOrderFunction_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield bike_services_1.bikeServices.createBikeService(req.body.bike);
+    const result = yield bike_services_1.bikeServices.createBikeService(req.body);
     (0, success_1.successResponse)(res, {
         success: true,
         statusCode: 201,
@@ -37,7 +37,7 @@ const handleGetAllBikes = (0, higherOrderFunction_1.default)((req, res) => __awa
 }));
 const handleUpdateBike = (0, higherOrderFunction_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = yield bike_services_1.bikeServices.updateBikeService(id, req.body.bike);
+    const result = yield bike_services_1.bikeServices.updateBikeService(id, req.body);
     (0, success_1.successResponse)(res, {
         success: true,
         statusCode: 201,
