@@ -3,7 +3,7 @@ import { successResponse } from "../utils/success";
 import { bikeServices } from "./bike.services";
 
 const handleCreateBike = catchAsync(async (req, res) => {
-  const result = await bikeServices.createBikeService(req.body.bike);
+  const result = await bikeServices.createBikeService(req.body);
   successResponse(res, {
     success: true,
     statusCode: 201,
@@ -24,7 +24,7 @@ const handleGetAllBikes = catchAsync(async (req, res) => {
 });
 const handleUpdateBike = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await bikeServices.updateBikeService(id, req.body.bike);
+  const result = await bikeServices.updateBikeService(id, req.body);
   successResponse(res, {
     success: true,
     statusCode: 201,

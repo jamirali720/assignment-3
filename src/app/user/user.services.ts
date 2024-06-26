@@ -15,7 +15,7 @@ const updateUsersProfileService = async (
   payload: Record<string, string>
 ) => {
   const updates: Record<string, unknown> = {};
-  const allowedUpdatesFields = ["name", "address", "phone"];
+  const allowedUpdatesFields = ["name", "phone"];
 
   if (payload && typeof payload === "object") {
     for (const key in payload) {
@@ -25,7 +25,7 @@ const updateUsersProfileService = async (
     }
   }
 
-  const result = await User.findByIdAndUpdate(id, updates, { new: true });
+  const result = await User.findByIdAndUpdate(id, updates, { new: true, runValidators:true });
   if (!result) {
     throw new ErrorHandler(httpStatus.NOT_FOUND, "Failed to update ");
   }

@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 export const createBikeValidationSchema = z.object({
-  body: z.object({
-    bike: z.object({
+  body: z.object({    
       name: z.string({
         required_error: "Name is required",
         invalid_type_error: "Name must be string",
@@ -31,14 +30,12 @@ export const createBikeValidationSchema = z.object({
       brand: z.string({
         required_error: "Brand is required",
         invalid_type_error: "Brand must be string",
-      }),
-    }),
+      }),   
   }),
 });
 
 export const updateBikeValidationSchema = z.object({
-  body: z.object({
-    bike: z.object({
+  body: z.object({   
       name: z.string().optional(),
       description: z.string().optional(),
       pricePerHour: z.number().optional(),
@@ -46,7 +43,6 @@ export const updateBikeValidationSchema = z.object({
       cc: z.number().optional(),
       year: z.number().optional(),
       model: z.string().optional(),
-      brand: z.string().optional(),
-    }),
+      brand: z.string().optional(),  
   }),
 });

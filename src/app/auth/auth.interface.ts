@@ -12,12 +12,13 @@ export interface IUser {
   role: string;
 }
 
+
 export interface UserModel extends Model<IUser> {
   isUserExists(email: string): Promise<IUser>;
   comparePassword(
     plainPassword: string,
     hashedPassword: string
-  ): Promise<boolean>;
+  ): Promise<boolean>; 
 }
 
 export interface ILoginData {

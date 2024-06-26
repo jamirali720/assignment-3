@@ -3,7 +3,7 @@ import { successResponse } from "../utils/success";
 import { bookingServices } from "./booking.services";
 
 const handleCreateRental = catchAsync(async(req, res) => {  
-    const result  = await bookingServices.createRentalService(req.user, req.body.booking);
+    const result  = await bookingServices.createRentalService(req.user, req.body);
     successResponse(res, {
         success:true, 
         statusCode: 201, 
