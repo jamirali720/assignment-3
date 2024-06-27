@@ -29,6 +29,7 @@ const updateBikeService = async (
     "cc",
     "year",
     "isAvailable",
+    "pricePerHour",
     "model",
     "brand",
   ];

@@ -35,6 +35,7 @@ const updateBikeService = (id, payload) => __awaiter(void 0, void 0, void 0, fun
         "cc",
         "year",
         "isAvailable",
+        "pricePerHour",
         "model",
         "brand",
     ];

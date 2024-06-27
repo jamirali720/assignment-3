@@ -83,6 +83,7 @@
   "description": "A durable mountain bike for rough terrains.",
   "pricePerHour": 25,
   "cc": 250,
+ "pricePerHour",
   "year": 2022,
   "model": "XYTb",
   "brand": "Yamaha"
